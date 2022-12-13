@@ -1,3 +1,4 @@
+import { useState } from "react";
 import articleImg from "./img/hero/articleImg.webp";
 import heroImg from "./img/hero/hero-img.webp";
 import logo from "./img/logo/logo.webp";
@@ -29,16 +30,14 @@ function HeroSection() {
   );
 }
 
-function NavLinks({ navItems }) {
+function NavLinks({ navItems, activeLink }) {
   return (
     <nav>
       <ul className="navContainer">
         {navItems.map((navItem) => {
           return (
-            <li key={navItem.id}>
-              <a href={navItem.url} className="link">
-                {navItem.name}
-              </a>
+            <li key={navItem.id} className="link" onClick={activeLink}>
+              {navItem.name}
             </li>
           );
         })}
@@ -65,10 +64,20 @@ function ContactSection({ contactInfo }) {
 }
 
 function Header({ navItems, contactInfo }) {
+  const [activeLink, setActiveLink] = useState("");
+
+  const linkActive = (e) => {
+    const active = e.currentTarget.classList.add("active");
+    const inActive = e.currentTarget.classList.remove("active");
+    if (active) {
+      setActiveLink(inActive);
+    }
+  };
+
   return (
     <div className="headerContainer">
       <img src={logo} alt="Business Logo" className="header-logo" />
-      <NavLinks navItems={navItems} />
+      <NavLinks navItems={navItems} activeLink={linkActive} />
       <ContactSection contactInfo={contactInfo} />
     </div>
   );
@@ -102,7 +111,7 @@ const socialNetwork = [
   },
 
   {
-    id: 1,
+    id: 2,
     url: "#",
     img: require("./img/social/facebook.webp"),
     description: "Facebook logo",
