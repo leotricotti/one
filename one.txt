@@ -3,6 +3,6 @@
     * Logo
     * Nav	
     * SocialNetwork   
-  *HeroContainer
+  *HeroSection
     * HeroImg
     * Article	 
