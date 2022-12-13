@@ -31,12 +31,14 @@ function HeroSection() {
 
 function NavLinks({ navItems }) {
   return (
-    <nav className="navContainer">
-      <ul>
+    <nav>
+      <ul className="navContainer">
         {navItems.map((navItem) => {
           return (
             <li key={navItem.id}>
-              <a href={navItem.link}>{navItem.name}</a>
+              <a href={navItem.url} className="link">
+                {navItem.name}
+              </a>
             </li>
           );
         })}
@@ -48,12 +50,12 @@ function NavLinks({ navItems }) {
 function ContactSection({ contactInfo }) {
   return (
     <div className="contactContainer">
-      <a href="/">
+      <a href="/" className="quote">
         <p>Get a quote</p>
       </a>
       {contactInfo.map((item) => {
         return (
-          <a href={item.link}>
+          <a key={item.id} href={item.url}>
             <img src={item.img} alt={item.description} />
           </a>
         );
@@ -65,15 +67,54 @@ function ContactSection({ contactInfo }) {
 function Header({ navItems, contactInfo }) {
   return (
     <div className="headerContainer">
-      <img src={logo} alt="Business Logo" />
+      <img src={logo} alt="Business Logo" className="header-logo" />
       <NavLinks navItems={navItems} />
       <ContactSection contactInfo={contactInfo} />
     </div>
   );
 }
 
+function AppContainer() {
+  return (
+    <>
+      <Header navItems={navLinks} contactInfo={socialNetwork} />
+      <HeroSection />
+    </>
+  );
+}
+
+const navLinks = [
+  { id: 1, url: "#", name: "home" },
+  { id: 2, url: "#", name: "about" },
+  { id: 3, url: "#", name: "services" },
+  { id: 4, url: "#", name: "locations" },
+  { id: 5, url: "#", name: "testimonial" },
+  { id: 6, url: "#", name: "blog" },
+  { id: 7, url: "#", name: "contact" },
+];
+
+const socialNetwork = [
+  {
+    id: 1,
+    url: "#",
+    img: require("./img/social/instagram.webp"),
+    description: "Instagram logo",
+  },
+
+  {
+    id: 1,
+    url: "#",
+    img: require("./img/social/facebook.webp"),
+    description: "Facebook logo",
+  },
+];
+
 function App() {
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      <AppContainer />
+    </div>
+  );
 }
 
 export default App;
